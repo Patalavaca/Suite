@@ -230,7 +230,7 @@ html,body{height:100%;background:var(--ink);font-family:'Crimson Pro',serif;colo
 <div class="tab-view" id="tab-why">
   <div class="section-title">Why this matters</div>
 
-  <div class="why-item"><div class="why-icon">👔</div><div><div class="why-title">The suit. The stag. The wedding.</div><div class="why-body">London October. Dublin November. John's wedding January. You want to be there feeling good — not self-conscious, not avoiding photos. These dates are fixed. The weight isn't.</div></div></div>
+  <div class="why-item"><div class="why-icon">👔</div><div><div class="why-title">The wedding. The new year. The fresh start.</div><div class="why-body">John's wedding in January. Then the build season begins. You want to be there feeling good — not self-conscious, not avoiding photos. The date is fixed. The weight isn't.</div></div></div>
   <div class="why-item"><div class="why-icon">🪞</div><div><div class="why-title">Confidence and how you carry yourself</div><div class="why-body">You know the difference. Clothes that fit. Walking into a room differently. This isn't vanity — it's the version of yourself you want back.</div></div></div>
   <div class="why-item"><div class="why-icon">🧬</div><div><div class="why-title">Diabetes risk — your dad</div><div class="why-body">Your father had type 2 diabetes. Excess weight around the middle is the primary modifiable risk factor. This one is not abstract.</div></div></div>
   <div class="why-item"><div class="why-icon">🫀</div><div><div class="why-title">ME and your lymphatic system</div><div class="why-body">Fat tissue physically compresses lymphatic vessels, reducing drainage capacity. Every stone lost reduces that compression. Weight loss and ME recovery are the same fight.</div></div></div>
@@ -432,13 +432,12 @@ function renderConfessLog(){
 // WEIGHT
 // ─────────────────────────────────────
 const MILESTONES=[
-  {lbs:182,display:'13st',icon:'🌱',msg:'First stone down from start. The body is changing — even if you can\'t see it yet, the numbers don\'t lie.'},
-  {lbs:174,display:'12st 8',icon:'📉',msg:'Halfway to target. Clothes are looser. Energy is different. You\'re doing this.'},
-  {lbs:170,display:'12st 4',icon:'🔓',msg:'London and Dublin unlock. The stag weekends are now fully yours — book those jeans.'},
-  {lbs:168,display:'12st 2',icon:'⚡',msg:'Almost there. The last few pounds before sub-12. This is where most people stop. You don\'t.'},
-  {lbs:168,display:'12st 2',icon:'⚡',msg:'Almost there. The last few pounds before sub-12. This is where most people stop. You don\'t.'},
-  {lbs:164,display:'12st',icon:'🎾',msg:'Padel unlocks. The wedding is yours. John\'s big day — you\'re there looking exactly how you want to look.'},
-  {lbs:162,display:'11st 12',icon:'🏆',msg:'Target weight. This is it. Everything you built this year — the steps, the WTD wins, the diet — this is what it was for.'},
+  {lbs:182,display:'13st',icon:'🌱',msg:'Holding steady through Christmas and the wedding. The foundation is set.'},
+  {lbs:178,display:'12st 10',icon:'📉',msg:'Build season is working. Clothes are looser. Energy is different.'},
+  {lbs:174,display:'12st 6',icon:'🔓',msg:'Padel unlocks. The weight gate opens. Book those courts.'},
+  {lbs:170,display:'12st 2',icon:'⚡',msg:'Almost there. The last stretch before the finish. This is where most people stop. You don\'t.'},
+  {lbs:166,display:'11st 12',icon:'🎯',msg:'One stone to go from start. You can see the target from here.'},
+  {lbs:162,display:'11st 8',icon:'🏆',msg:'Target weight. This is it. Everything you built — the steps, the WTD wins, the diet — this is what it was for.'},
 ];
 
 function lbsFromStr(str){
@@ -517,29 +516,39 @@ function closeMilestone(){document.getElementById('milestone-overlay').classList
 // PROGRESS
 // ─────────────────────────────────────
 const MONTHLY_TARGETS=[
-  {month:'May 2026',target:188,label:'13st 6 — first steps'},
-  {month:'June 2026',target:184,label:'13st 2 — building momentum'},
-  {month:'July 2026',target:180,label:'12st 12 — under 13 stone'},
-  {month:'August 2026',target:176,label:'12st 8 — halfway milestone'},
-  {month:'September 2026',target:172,label:'12st 4 — stag weight'},
-  {month:'October 2026',target:169,label:'12st 1 — London stag'},
-  {month:'November 2026',target:166,label:'11st 12 — Dublin stag'},
-  {month:'December 2026',target:163,label:'11st 9 — nearly there'},
-  {month:'January 2027',target:162,label:'11st 8 — target weight'},
+  {month:'January 2027',target:182,label:'13st 0 — holding steady'},
+  {month:'February 2027',target:178,label:'12st 10 — build season starts'},
+  {month:'March 2027',target:174,label:'12st 6 — padel unlocks'},
+  {month:'April 2027',target:170,label:'12st 2 — nearly there'},
+  {month:'May 2027',target:166,label:'11st 12 — almost home'},
+  {month:'June 2027',target:162,label:'11st 8 — target weight'},
 ];
-const START_LBS=191;
+const START_LBS=185; // ~13st 3, current starting point
 
 const DEADLINES=[
-  {name:'Birthday & Padel',date:'2026-08-12',icon:'🎾'},
   {name:'London Stag',date:'2026-10-17',icon:'🎉'},
   {name:'Dublin Stag',date:'2026-11-20',icon:'🇮🇪'},
   {name:"John's Wedding",date:'2027-01-02',icon:'💒'},
+  {name:'Padel',date:'2027-05-31',icon:'🎾'},
+  {name:'Birthday',date:'2027-08-12',icon:'🎂'},
+  {name:'Japan',date:'2027-10-15',icon:'🇯🇵'},
 ];
 
 function daysUntil(dateStr){
   const d=new Date(dateStr);const t=new Date();
   t.setHours(0,0,0,0);
   return Math.ceil((d-t)/(1000*60*60*24));
+}
+
+function deadlineStatus(name){
+  const d=ld();
+  return d.deadlineStatus?.[name]||null; // 'done' or 'missed' or null
+}
+function setDeadlineStatus(name,status){
+  const d=ld();
+  if(!d.deadlineStatus)d.deadlineStatus={};
+  d.deadlineStatus[name]=status;
+  sd(d);renderProgress();
 }
 
 function renderProgress(){
@@ -560,10 +569,33 @@ function renderProgress(){
   }).join('');
 
   const dl=document.getElementById('deadlines');
-  dl.innerHTML=DEADLINES.map(d=>{
-    const days=daysUntil(d.date);
+  dl.innerHTML=DEADLINES.map(dd=>{
+    const days=daysUntil(dd.date);
+    const past=days<0;
+    const st=deadlineStatus(dd.name);
+    if(st==='done'){
+      return `<div class="deadline-card" style="border-color:rgba(76,175,80,0.3)">
+        <div><div class="dl-name">${dd.icon} ${dd.name}</div><div class="dl-date">${dd.date}</div></div>
+        <div style="text-align:right"><div class="dl-days" style="color:#4CAF50">✓</div><div class="dl-days-label" style="color:#4CAF50">done</div></div>
+      </div>`;
+    }
+    if(st==='missed'){
+      return `<div class="deadline-card" style="opacity:0.5;border-color:rgba(244,67,54,0.2)">
+        <div><div class="dl-name">${dd.icon} ${dd.name}</div><div class="dl-date">${dd.date}</div></div>
+        <div style="text-align:right"><div class="dl-days" style="color:#F44336;font-size:0.85rem">missed</div></div>
+      </div>`;
+    }
+    if(past){
+      return `<div class="deadline-card" style="border-color:rgba(255,213,90,0.3)">
+        <div><div class="dl-name">${dd.icon} ${dd.name}</div><div class="dl-date" style="color:rgba(255,213,90,0.8)">Date passed — did you do it?</div></div>
+        <div style="display:flex;gap:8px">
+          <button onclick="setDeadlineStatus('${dd.name}','done')" style="padding:8px 14px;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);border-radius:6px;color:#4CAF50;font-family:'Crimson Pro',serif;font-size:0.85rem;cursor:pointer">Done</button>
+          <button onclick="setDeadlineStatus('${dd.name}','missed')" style="padding:8px 14px;background:rgba(244,67,54,0.1);border:1px solid rgba(244,67,54,0.3);border-radius:6px;color:#F44336;font-family:'Crimson Pro',serif;font-size:0.85rem;cursor:pointer">Missed</button>
+        </div>
+      </div>`;
+    }
     return `<div class="deadline-card">
-      <div><div class="dl-name">${d.icon} ${d.name}</div><div class="dl-date">${d.date}</div></div>
+      <div><div class="dl-name">${dd.icon} ${dd.name}</div><div class="dl-date">${dd.date}</div></div>
       <div style="text-align:right"><div class="dl-days">${days}</div><div class="dl-days-label">days</div></div>
     </div>`;
   }).join('');
