@@ -548,7 +548,7 @@ function setDeadlineStatus(name,status){
   const d=ld();
   if(!d.deadlineStatus)d.deadlineStatus={};
   d.deadlineStatus[name]=status;
-  sd(d);renderProgress();
+  sv(d);renderProgress();
 }
 
 function renderProgress(){
@@ -590,8 +590,8 @@ function renderProgress(){
       return `<div class="deadline-card" style="border-color:rgba(255,213,90,0.3);flex-wrap:wrap;gap:10px">
         <div style="flex:1 1 100%"><div class="dl-name">${dd.icon} ${dd.name}</div><div class="dl-date" style="color:rgba(255,213,90,0.8)">Date passed — did you do it?</div></div>
         <div style="display:flex;gap:8px;width:100%">
-          <button onclick="setDeadlineStatus('${safeName}','done')" style="flex:1;padding:10px 14px;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);border-radius:6px;color:#4CAF50;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer">✓ Done</button>
-          <button onclick="setDeadlineStatus('${safeName}','missed')" style="flex:1;padding:10px 14px;background:rgba(244,67,54,0.1);border:1px solid rgba(244,67,54,0.3);border-radius:6px;color:#F44336;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer">✗ Missed</button>
+          <button onclick="setDeadlineStatus('${safeName}','done')" style="flex:1;padding:10px 14px;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);border-radius:6px;color:#4CAF50;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer">Done</button>
+          <button onclick="setDeadlineStatus('${safeName}','missed')" style="flex:1;padding:10px 14px;background:rgba(244,67,54,0.1);border:1px solid rgba(244,67,54,0.3);border-radius:6px;color:#F44336;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer">Missed</button>
         </div>
       </div>`;
     }
